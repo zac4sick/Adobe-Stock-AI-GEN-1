@@ -1,0 +1,15 @@
+STOCK ASSET OPPORTUNITY LAB — START HERE
+
+1. Open Google AI Studio: https://aistudio.google.com/
+2. Go to Build mode.
+3. Open GOOGLE_AI_STUDIO_BUILD_PROMPT.txt from this package, select all text, and paste it into the Build prompt box.
+4. Run the prompt and let AI Studio create the application.
+5. Test the following before relying on the app:
+   - Select “Muse Transparent PNG Batch” and generate one test item.
+   - Confirm the Muse prompt asks for true alpha transparency, a chosen ratio, native 4K where supported, title, and at least 22 plain comma-separated keywords.
+   - Select “Flow Video Pack” and confirm the timeline has one entry per second.
+   - Run the research step and check that sources are clickable, dated, and no sales figures are fabricated.
+   - Test JSON/Markdown/CSV downloads and portfolio ledger import/export.
+6. Use follow-up instructions in AI Studio to fix any test that fails. Do not treat a generated preview as proof that every integration works.
+
+Important: the app creates prompts and metadata. It does not directly generate images inside Muse or submit assets to Adobe Stock unless those integrations are separately implemented and verified. Verify the licensing terms for each image generator before submitting generated output to Adobe Stock.

@@ -1,0 +1,6 @@
+{
+  "name": "Stock Asset Opportunity Lab",
+  "description": "Commercial Adobe Stock opportunity research engine, gap finder, and submission-ready prompt & metadata generator for Muse AI PNGs, photos, and Flow videos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

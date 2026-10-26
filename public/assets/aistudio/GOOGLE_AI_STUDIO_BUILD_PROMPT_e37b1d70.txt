@@ -1,0 +1,288 @@
+BUILD PROMPT — STOCK ASSET OPPORTUNITY LAB
+Paste this entire file into Google AI Studio → Build mode.
+
+Build a polished, working full-stack web application called “Stock Asset Opportunity Lab”. It is an independent creator tool for researching Adobe Stock opportunities and generating original, production-grade image and video prompts with submission-ready metadata. The app does NOT need to generate the final stock asset itself. Its core job is to research opportunities, help the user choose a niche, image type, buyer, trend and content gap, then generate prompts designed for Muse AI (transparent PNGs), image-generation tools, or Google Flow (videos). Do not create a marketing landing page or a static mockup: implement the actual workflow, forms, research calls, prompt generation, validation, saved portfolio history, and exports.
+
+PRODUCT GOAL
+Help a stock contributor make better informed choices before generating assets. The app should think like a commercial stock art director and a buyer who needs a useful asset—not a generic prompt writer. It must not promise downloads, acceptance, profit, or “top selling” status without verifiable evidence. Show “opportunity hypothesis” scores and explain what evidence supports them.
+
+PRIMARY USER WORKFLOW
+1. User selects or asks the app to recommend a niche.
+2. User selects asset type, buyer focus, target placement, trend/seasonality horizon, geographic market, style, aspect ratio/format, and desired number of outputs.
+3. App researches current signals and produces a dated opportunity brief with citations, market/competition observations, buyer problems, gaps, uncertainty, and a ranked shortlist.
+4. User either picks a shortlist or clicks “Choose best opportunities for me”.
+5. App generates the requested prompts in structured JSON, each with detailed technical/creative instructions, a distinct commercial use case, title, and metadata keywords.
+6. A second-pass reviewer checks IP risks, similarity to the user’s portfolio history, technical completeness, realism, metadata, and count requirements; it revises the draft or flags items that need human review.
+7. User copies an individual prompt, copies metadata, or exports JSON, Markdown, and a CSV metadata sheet. Save the pack in browser storage and allow importing/exporting a portfolio ledger.
+
+DEFAULT PRESETS
+A. “Daily Mixed Pack” — 8 image prompts + 5 Flow video prompts. This is the current default production pack.
+B. “Muse Transparent PNG Batch” — 8 isolated PNG/cutout asset prompts, with no video prompts unless the user adds them.
+C. “Photography Pack” — user-chosen quantity of photorealistic still-image prompts.
+D. “Flow Video Pack” — user-chosen quantity of video prompts, default target duration 10 seconds per clip.
+E. “Custom Pack” — user chooses separate image and video counts.
+Always let the user override quantities. Do not silently change them.
+
+MAIN UI / NAVIGATION
+Create a clean dark-or-light responsive UI with four main areas:
+- Opportunity Research
+- Prompt Studio
+- Portfolio & Repeat-Concept Guard
+- Exports & Quality Check
+Use clear cards, compact metadata, readable contrast, copy buttons, save controls, source citations, status indicators, and progress steps. Do not use decorative dashboards with fabricated statistics. The landing workspace should immediately show a “Start new pack” form.
+
+INPUT CONTROLS — THE USER MUST BE ABLE TO CHOOSE THESE
+1. Niche: “Recommend a niche” plus editable options, including nature/wildlife, food/drink, workplace/business, finance, healthcare/wellness, cybersecurity/technology, education, sustainability, travel/hospitality, interiors/architecture, culture/festivals, seasonal/holiday, pets/animals, beauty/skincare, craft/handmade, isolated product elements, decorative design elements, textures/backgrounds, transportation/mobility, agriculture, accessibility/inclusion, abstract/conceptual visuals, and custom niche.
+2. Asset type (multi-select where appropriate): photorealistic photo, isolated transparent PNG element, product cutout, decorative graphic/design element, conceptual illustration, background/texture, Flow video, mixed pack. Clearly explain that an image prompt is not itself a vector file and a generated PNG is not truly transparent unless the export has an alpha channel.
+3. Buyer focus: graphic designers, ad agencies, e-commerce/retail, small businesses, editors/publishers, social-video producers, hospitality/tourism, food/restaurant, education, healthcare, technology, environment/NGO, real estate/interiors, event/festival marketing, product packaging, greeting cards/invitations, motion designers/compositors, or custom.
+4. Placement / buyer task: website hero, presentation, social ad, poster/flyer, product listing, packaging, editorial article, greeting card, menu, explainer video, video overlay/compositing, vertical social video, thumbnail, background, or custom.
+5. Trend horizon: last 7 days, last 30 days, last 90 days, upcoming 30 days, upcoming 90 days, seasonal calendar, evergreen, or blended.
+6. Target market / culture: global, North America, UK/Ireland, Europe, South Asia, East/Southeast Asia, Middle East, Latin America, Africa, or custom region. Use user-selected locale; do not assume global buyers always want U.S. seasonal themes.
+7. Creative direction: natural humanized photo; documentary/candid; macro/tactile; product studio; flat-lay/overhead; aerial; lifestyle; clean isolated cutout; luxury editorial; vibrant/playful; subtle surreal but physically coherent; cultural/local; minimal negative-space background; or custom. Default photos should look like real photographs by a skilled photographer, with natural imperfections—not generic CGI or overprocessed AI art.
+8. Differentiation/gap strategy: underserved buyer task; uncommon-but-useful composition; less generic variation; local/cultural authenticity; inclusive representation; real tactile detail; strong copy space; new use case; seasonal lead time; transparent cutout utility; or “recommend a gap”.
+9. Output quantity: editable counts for images and videos. Defaults above.
+10. Aspect ratio / composition: auto-recommend, 1:1, 4:5, 3:2, 4:3, 16:9, 9:16, 2:3, or custom. Show recommended ratio with a buyer-use explanation. Do not blindly force all assets into one ratio.
+11. Target generator: Muse AI (transparent PNG), general image model, Google Flow, other, or unspecified. Tailor instructions for the target; never claim to trigger Muse or Flow directly unless an integration has been implemented and tested. In this app, generate copy-ready prompts for the selected downstream tool.
+12. Exclusion list: editable blocked topics, recent concepts and visual patterns. Preload the initial exclusions specified later in this prompt.
+13. Advanced: preferred palette/materials, people or no people, copy-space location, background transparency, duration, motion language, realistic vs illustrative, and negative prompt strength.
+
+RESEARCH ENGINE — MUST BE REAL, DATE-AWARE, AND HONEST
+Use Gemini with Google Search grounding/tooling on the server to research up-to-date opportunity signals. Google’s current docs describe Search grounding as a way to access recent web content and provide verifiable citations. Use official Adobe Stock contributor guidance, Adobe Creative Trends/Artist Hub, Adobe seasonal/creative reports when relevant, public Google trends reporting/search signals where accessible, relevant cultural/holiday calendars, public search result snippets, and public marketplace/search/category pages where permitted. Community chatter and third-party trend trackers may be used only as directional evidence, and clearly labeled as such. Do not scrape behind login, bypass restrictions, or invent marketplace numbers.
+
+Each research run must:
+- Show the research date, target market, trend window, and sources with clickable URLs/citations.
+- Summarize evidence separately from the app’s interpretation.
+- Explain the buyer, communication/design problem, target placement, and why an asset could be useful.
+- Identify market saturation signs where observable (many near-identical generic results, repetitive compositions, common stock clichés) and opportunities to differentiate.
+- Never claim direct Adobe Stock sales/download counts unless an official verifiable source explicitly provides them.
+- Treat search interest, search-result counts, public trend lists, forum discussions, and editorial coverage as proxies—not proof of Adobe Stock downloads.
+- If live Google Trends data is unavailable, say “Direct Google Trends data was not verified in this run” and use other identified sources. Never fabricate trend volumes or numerical search popularity.
+- Distinguish evergreen demand from seasonal timing, and recommend creating seasonal content early enough for production/review.
+- If web grounding fails, tell the user and provide an explicitly labeled non-live brainstorm rather than pretending to have researched trends.
+
+OPPORTUNITY SCORE
+For each candidate idea, calculate an explicitly heuristic 0–100 “Opportunity Hypothesis” score, and show its component rationale. Suggested weights:
+- Buyer utility and use-case clarity: 25 points
+- Differentiation / portfolio gap: 20 points
+- Search/trend/seasonal evidence quality and recency: 15 points
+- Metadata/search-intent clarity: 10 points
+- Composition and placement usability: 10 points
+- Generation feasibility and technical quality: 10 points
+- Low IP/licensing and review risk: 10 points
+Scores are hypotheses, not sales forecasts. Cite the sources behind trend claims; keep the IP score based on the prompt/design choices, not legal guarantees. Also show confidence (low/medium/high) and reason.
+
+GAP-FINDING LOGIC
+Do not simply choose whatever looks trendy. For each niche compare:
+- Common stock cliché / obvious competitor pattern
+- Specific buyer task that still needs visual coverage
+- A distinct angle: human action, scale, perspective, cultural setting, physical material, timing, copy-space need, aspect ratio, use-case, or compositing utility
+- Evidence and uncertainty
+- Potential production pitfalls
+- Reason it differs from the user’s recent portfolio
+Generate 8–12 opportunity candidates in research mode if sufficient evidence exists; rank them, explain the shortlist, then generate the chosen number. If the user asks to skip selection and “choose for me,” select the best-scoring mix and proceed.
+
+PORTFOLIO / NON-REPETITION GUARD
+Store a user-editable local portfolio ledger in browser localStorage. Let the user export/import JSON and CSV. Track asset concept, date, niche, buyer, asset type, title, key visual features, ratio, generator, status, refusal reason if any, and keywords. Before finalizing, compare new ideas to saved entries and blocked concepts. If semantically close, revise them before displaying. Do not claim a formal similarity detector unless implemented; use a transparent prompt-based similarity check and let the user confirm.
+
+Preload these recently used or rejected topics/patterns into the initial exclusion list. Avoid exact concepts and close variants unless the user explicitly removes them:
+- round moss/mushroom miniature in a green planter; red ornament centered on green screen; generic Christmas icons/cookie rows/wine glass cutouts/bows; generic retro wind-up robot where design may look like a known toy; dog sniffing a wrapped gift; tree decorating with multicolored lights; luxury gift box and oversized bow; tropical Christmas veranda; knitting/handmade wool close-up; candle lighting; holiday mocktail pouring; winter tram; night bridge timelapse; electric car in illuminated tunnel; pumpkin harvesting; steam plumes against black; starry salt-flat reflection; turquoise aerial reef; school percussion lesson; black horse after rain; plaster wall with leaf shadows; generic coastal city aerial; wetland bird taking off; generic plant-like shadows on glass; rangoli close-up; ceramic glaze pouring; wind turbine fog; e-bike battery inspection; reusable wrapping flat lay; Christmas paper village ornament; white steam or snowfall overlays; generic corporate people around a table/laptop; doctor/patient cliché; generic hoodie hacker; holographic finance dashboards; repeated office-team/workshop scenes.
+Treat this exclusion list as a starting seed, not a permanent ban on every related topic: a user can intentionally re-enable a subject, but the app should flag near-duplicates and require a meaningful change in buyer use case and visual approach.
+
+IP / REFUSAL-PREVENTION GATE — STRICT
+The user previously had Adobe Stock submissions rejected for intellectual property concerns. Avoid overly similar references and recognizable protected material. Hard rules:
+- Never use real artist names, celebrities, real-person names, fictional character names, copyrighted works, logos, trademarks, brand names, protected mascots, signature product designs, proprietary software/UI, recognizable franchise aesthetics, or government-agency references in prompts, titles, or keywords.
+- Never prompt for “in the style of” a living artist.
+- Never treat an uploaded/reference stock image as a template to reproduce. A reference board can be analyzed only for high-level principles such as material, color rhythm, buyer category or composition type; invent a new subject, arrangement, camera view, lighting plan and context.
+- Avoid newsworthy or real-world event depictions when using generated content.
+- Avoid recognizable property, famous landmarks, murals, artwork, licensed characters and proprietary objects unless the user establishes rights and the target stock rules permit it.
+- Do not add text/logos/labels/watermarks by default. If the intended content inherently requires typography, generate a blank-space design and let the user add licensed text later.
+- Use “original generic design”, “fictional unidentifiable setting”, “unbranded” and similar restrictions where appropriate, but do not claim that these phrases alone make an asset legally safe.
+- For each asset, show an IP risk status: Low / Needs review / Reject. If risky, revise or reject the concept before output. Give a specific reason; never guarantee “IP-safe”.
+- Require final human review before Adobe submission.
+
+PROMPT ENGINE — COMMON RULES
+Prompts must be detailed, production-ready, specific to the selected generator, and built around a real commercial use-case. Each asset must have a unique title, buyer and selling point. Write about physical scene design rather than vague adjectives. Use accurate perspective, scale, anatomy, material properties, object contacts, believable shadows/reflections, exposure, focus, and composition. Specify what to leave out as carefully as what to include. Avoid prompting five versions of the same thing. Avoid generic AI stock clichés. Do not use “best-selling” as a claim; say “potential opportunity” or “buyer-use hypothesis”.
+
+IMAGE PROMPT REQUIREMENTS
+For each image prompt include:
+- Unique concept and buyer persona
+- Placement and communication problem solved
+- Differentiated selling point
+- Short research rationale with source references and date (research details belong in app metadata, not embedded as image text)
+- Full prompt with subject and action, foreground/midground/background, exact placement and relative scale, natural imperfections, location/context, camera height/viewpoint, lens perspective, framing/aspect ratio, lighting direction/intensity, shadows/reflections, focus/depth of field, materials and color control
+- Explicit realism and image integrity constraints: coherent anatomy, correct fingers and limb count where visible, no duplicate/merged/floating objects, correct object geometry, consistent illumination, no impossible reflections, no warped text/signs, no artificial skin/materials, no blur/noise/compression artifacts
+- Negative prompt list
+- Recommended ratio and rationale
+- Resolution/format guidance appropriate to the asset type
+- Adobe Stock title
+- At least 22 accurate, relevant keywords; default 25–35. Also include `keywords_array` and `keywords_csv`; `keywords_csv` must be comma-separated plain words/phrases with no # symbols. Put the strongest accurate search-intent keywords first. No keyword stuffing or unrelated trending terms.
+- Submission checklist for AI label, fictional people/property as applicable, rights, release considerations, and category/type (Photo vs Illustration vs PNG) where relevant.
+
+TRANSPARENT PNG / MUSE MODE
+This is a first-class mode because the user wants to produce isolated PNG assets in Muse AI. Generate a copy-ready `muse_prompt`, not an instruction for Claude or a prompt for another app. The app does not generate the PNG itself unless a separately implemented Muse integration exists. It should produce a detailed prompt for Muse and then metadata for Adobe Stock.
+Each transparent PNG concept must be a useful standalone asset for designers: decorative frame/border, blank label, ribbon/bow, seal, isolated food, craft object, product prop, seasonal cutout, original generic mascot, glass/ice/light element, texture element, or other specific buyer need. Select niches dynamically; do not default always to Christmas. Vary assets as requested by the user.
+The `muse_prompt` must explicitly state:
+- Generate ONE main asset or a clearly requested coordinated set (prefer one asset per file; a set is allowed only when useful to the buyer)
+- True transparent background with actual alpha channel; do not draw a checkerboard or colored backing
+- Appropriate asset-specific aspect ratio (auto-recommend from 1:1, 4:5, 3:2, 16:9, 9:16, 2:3, 3:4); avoid clipping; tight canvas boundary with small safe margin
+- Native 4K output when Muse supports it; choose aspect ratio and dimensions appropriate to the subject; no upscaling claims unless verified
+- Realistic photography by default for real-world props; use illustration when explicitly selected
+- For isolated physical objects: controlled studio light, coherent shape, crisp silhouette, natural material detail, no backdrop shadows outside the object unless deliberately requested, no cast-background plane, no extra props, no watermark/text/logo, and no fringes/halos
+- For glass, fur, hair, thin wire or translucent objects, explicitly require clean alpha edges and no matte contamination; if Muse cannot produce alpha, instruct the user to use a genuine background-removal/masking step and inspect the alpha channel
+- Keep the complete object inside the frame, avoid excessive transparent padding, and use physically plausible geometry
+- Do not assume PNG format means transparency. Include a visible warning that the actual output must be inspected.
+
+Use the current Adobe Stock PNG requirement as a configurable rule set, and show the date checked. At the time of preparing this app prompt, Adobe's official PNG guidance (last updated June 11, 2026) specifies 4MP–100MP, maximum 45MB, PNG, sRGB, true transparent background, no watermarks/branding, sharp detail, preserved image data, and minimal excess space. Recheck official Adobe guidelines through research instead of hard-coding forever. “4K” is not the same as a single universal pixel dimension for every aspect ratio; display actual output dimensions and megapixels.
+
+PHOTOREALISTIC PHOTO MODE
+Default aesthetic: natural, humanized imagery that could credibly be captured by a professional photographer. Explicitly control scene geometry, exact object positions, anatomy, real materials, believable reflections, contact shadows, camera height, lens character and framing. Natural imperfections are welcome; malformed anatomy or accidental dirt/artifacts are not. Avoid the artificial plastic-skin, excessive saturation, over-sharpening, fake bokeh, render-like surfaces and perfect showroom look of generic AI images. If the idea is an imaginary scene, set content type to illustration rather than presenting it as a real photograph.
+
+FLOW VIDEO MODE
+For each video prompt include:
+- One well-defined subject and buyer job
+- Copy-ready `flow_prompt`
+- Camera framing, angle, lens/perspective, movement and stabilization
+- Scene layout, materials, lighting, reflections/shadows and exposure
+- Physical continuity conditions, identity/geometry locks, motion path, contact and gravity constraints
+- Detailed second-by-second timeline covering the entire selected duration, by default 10 seconds for the user’s Flow workflow. Every second must add a specific plausible action or deliberately hold a clean shot; no duplicate timelines or vague “slow cinematic movement” alone.
+- Audio guidance with ambience/SFX/music separated; default no music unless requested
+- Negative prompt list addressing morphing, jitter, flicker, identity/object drift, duplicated objects, wrong shadows, impossible physics, logos/text/watermarks and camera instability
+- Target duration, aspect ratio (16:9 landscape or 9:16 native vertical, etc.), resolution and frame-rate guidance for the chosen generator. Validate against the tool’s latest documented limits before claiming support.
+- Title and at least 22 accurate, comma-separated plain-text keywords, without hashtag symbols.
+
+METADATA RULES
+Titles must be descriptive, concise, accurate and search-friendly. Do not write promotional superlatives as titles. Never imply that generated content depicts an actual news event. Do not include brand names, artist names, fictional character names, trademark terms or irrelevant trend terms. Keywords must describe the actual generated asset and its likely buyer use. The first 10 should be the most relevant. `keywords_csv` contains no hashtag symbols. Default 25–35 keywords. Validate every prompt contains at least 22 unique relevant keywords before display.
+
+OUTPUT SCHEMA / STRUCTURED GENERATION
+Use Gemini structured output / JSON Schema (or an equivalent schema-validated server response) so the app does not return malformed JSON. A pack object should contain:
+{
+  "pack_title": string,
+  "research_date": string,
+  "target_market": string,
+  "research_summary": string,
+  "google_trends_status": "verified" | "not_verified" | "unavailable",
+  "opportunity_candidates": [ ...source-backed candidates... ],
+  "images": [
+    {
+      "id": string,
+      "concept": string,
+      "niche": string,
+      "buyer_persona": string,
+      "placement": string,
+      "selling_point": string,
+      "research_rationale": string,
+      "trend_signals": [ ... ],
+      "competition_and_gap": string,
+      "opportunity_score": number,
+      "score_rationale": string,
+      "confidence": "low" | "medium" | "high",
+      "ip_risk": "low" | "needs_review" | "reject",
+      "ip_risk_reason": string,
+      "asset_type": string,
+      "aspect_ratio": string,
+      "resolution_guidance": string,
+      "image_prompt": string,
+      "muse_prompt": string,
+      "camera": object,
+      "lighting": object,
+      "negative_prompt": [string],
+      "adobe_stock_title": string,
+      "keywords_array": [string, ... at least 22 unique relevant items ...],
+      "keywords_csv": string,
+      "submission_checklist": [string]
+    }
+  ],
+  "videos": [
+    {
+      "id": string,
+      "concept": string,
+      "niche": string,
+      "buyer_persona": string,
+      "placement": string,
+      "selling_point": string,
+      "research_rationale": string,
+      "trend_signals": [ ... ],
+      "competition_and_gap": string,
+      "opportunity_score": number,
+      "score_rationale": string,
+      "confidence": "low" | "medium" | "high",
+      "ip_risk": "low" | "needs_review" | "reject",
+      "ip_risk_reason": string,
+      "duration_sec": number,
+      "aspect_ratio": string,
+      "resolution_guidance": string,
+      "frame_rate_guidance": string,
+      "flow_prompt": string,
+      "camera": object,
+      "lighting": object,
+      "physical_continuity": string,
+      "timeline": [{"second": number, "action": string}],
+      "audio": {"ambient": string, "sfx": [string], "music": string},
+      "negative_prompt": [string],
+      "adobe_stock_title": string,
+      "keywords_array": [string, ... at least 22 unique relevant items ...],
+      "keywords_csv": string,
+      "submission_checklist": [string]
+    }
+  ],
+  "final_quality_audit": { ... counts, passed checks, warnings ... },
+  "sources": [{"title": string, "url": string, "publisher": string, "published_or_updated_date": string, "accessed_date": string, "what_it_supports": string, "evidence_type": "official" | "public_trend_signal" | "community_signal" | "marketplace_proxy"}]
+}
+Adapt the schema to the selected pack type; empty arrays are allowed where the user requested zero images or zero videos. Do not fabricate source titles, dates, URLs or numeric results.
+
+FINAL QUALITY AUDIT — RUN BEFORE DISPLAY
+Use a separate reviewer pass. Verify:
+- Output counts exactly match user request/preset.
+- Every asset has a distinct concept, buyer, placement and selling point.
+- Every item has at least 22 unique relevant plain-text keywords and a consistent comma-separated keyword string; no # symbols.
+- No near-duplicate against the current pack or stored ledger.
+- No banned IP references in the prompt, title or keywords.
+- No implication that it depicts actual current news.
+- Image prompts contain clear composition/camera/light/materials/quality controls and correct asset-specific ratio/resolution instructions.
+- PNG prompts demand genuine alpha transparency and never a checkerboard background; include real 4K/resolution caveat.
+- Video timeline has one entry for every second in the selected clip (e.g. 10 entries for 10 seconds), with coherent events and stable objects.
+- Research citations exist for claims about current trends; claims are properly distinguished from inference and sales data.
+- The prompt has explicit physical realism and anti-artifact controls without making impossible guarantees.
+- Risks, release needs and uncertain rights are flagged honestly.
+If validation fails, revise once; if it still fails, show the specific warning rather than silently claiming success.
+
+EXPORTS
+Implement functional buttons for:
+- Copy individual image/video prompt JSON
+- Copy only `muse_prompt` or `flow_prompt`
+- Copy title + keyword CSV
+- Download complete pack as `.json`
+- Download a formatted `.md` production pack
+- Download metadata `.csv`
+- Export/import portfolio ledger as `.csv` and `.json`
+- Save a pack to local history and duplicate it for revisions
+Ensure the CSV quotes fields properly and opens correctly in spreadsheet apps.
+
+APP IMPLEMENTATION / ENGINEERING
+- Build a real responsive web app using the supported Google AI Studio Build stack (React frontend; server-side Node runtime for API calls where available).
+- Use the official Google Gen AI SDK and server-side Gemini calls. Use Google Search grounding for current research if supported by the selected model/runtime. Never invent a custom browser-scraping pipeline that bypasses access limits.
+- Keep API keys and secrets server-side; never expose a Gemini key in client code or local storage. Use AI Studio’s Secrets/environment settings when available.
+- Add robust loading, retry, timeout, schema-validation and understandable error states. Do not lose the user's selections after a failed API call.
+- Make the model selectable in settings, with a currently supported model default; do not hard-code a dated preview model name into all functions.
+- Keep research calls separate from final asset generation so sources and opportunity scoring can be inspected before prompt writing.
+- When Google Search grounding cannot provide usable current sources, clearly mark the evidence as unavailable and ask the model for a non-live idea only if the user chooses to continue.
+- Use localStorage for initial pack history and ledger if no database is configured; provide export/import so users control their history.
+- Implement schema validation and simple keyword-count/duplicate checks in code, not just in prompt text.
+- Do not include fabricated sales metrics, fake charts, fake search-volume data or made-up citation badges.
+- Provide a usable README/in-app Help panel explaining research limitations, scoring, tool hand-off to Muse/Flow, metadata, IP review and Adobe Stock submission settings.
+
+INITIAL RESEARCH SOURCE LIST TO CODE AS TRUSTED STARTING POINTS (re-verify dynamically each run)
+- Adobe Stock generative AI guidelines: https://helpx.adobe.com/stock/contributor/submit-your-content/submit-generative-ai-content/generative-ai-content-guidelines.html
+- Adobe Stock generative AI submission page: https://helpx.adobe.com/stock/contributor/submit-your-content/submit-generative-ai-content/submit-generative-ai-content.html
+- Adobe Stock PNG requirements: https://helpx.adobe.com/stock/contributor/submit-your-content/submit-pngs/technical-requirements-png-submission.html
+- Adobe Stock photo requirements: https://helpx.adobe.com/stock/contributor/submit-your-content/submit-photos/technical-legal-requirements-photo-submission.html
+- Adobe Stock video requirements: https://helpx.adobe.com/stock/contributor/submit-your-content/submit-videos/technical-requirements-for-video-submissions.html
+- Google AI Studio Build mode documentation: https://ai.google.dev/gemini-api/docs/aistudio-build-mode
+- Gemini API Google Search grounding documentation: https://ai.google.dev/gemini-api/docs/google-search
+Use additional current sources as appropriate. Always show dates, and prioritize official guidance.
+
+DESIGN QUALITY
+Build a professional creator workstation with a left navigation rail, a concise opportunity research header, a clear step-by-step workflow, compact cards with opportunity scores, expandable structured JSON viewers, copy/download buttons, and a prominent IP/quality warning area. It should feel like a working research and production tool, not a chatbot skin. The first screen must let a user select: niche, asset type, buyer focus, trends/seasonality, target market, gap strategy, output counts, and “research and recommend”.
+
+DELIVERABLE
+Implement the working app in Build mode now. Do not merely respond with a plan or repeat this specification. After implementation, test a sample workflow with at least one image and one video prompt, validate JSON and keyword counts, test copy/download behavior, and report what works and any unavailable integration honestly.
